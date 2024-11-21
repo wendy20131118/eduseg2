@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClassMate Table</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <div class="ui container">
+        <table class="ui celled table">
+            <thead>
+                <tr>
+                    <th>ClassMate</th>
+                    <th>=</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>classMate[0]</td>
+                    <td>=</td>
+                    <td>
+                        <div class="ui input">
+                            <input type="number" min="0" step="1" data-index="0">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>classMate[1]</td>
+                    <td>=</td>
+                    <td>
+                        <div class="ui input">
+                            <input type="number" min="0" step="1" data-index="1">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>classMate[2]</td>
+                    <td>=</td>
+                    <td>
+                        <div class="ui input">
+                            <input type="number" min="0" step="1" data-index="2">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>classMate[3]</td>
+                    <td>=</td>
+                    <td>
+                        <div class="ui input">
+                            <input type="number" min="0" step="1" data-index="3">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>classMate[4]</td>
+                    <td>=</td>
+                    <td>
+                        <div class="ui input">
+                            <input type="number" min="0" step="1" data-index="4">
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <pre><code class="language-cpp" id="cppCode"></code></pre>
+    </div>
+
+    <script>
+    $(document).ready(function() {
+        $('input[type="number"]').on('change', function() {
+            const index = $(this).data('index');
+            const value = $(this).val();
+
+            // Highlight the changed row
+            $('tr').removeClass('positive');
+            $(this).closest('tr').addClass('positive');
+
+            // Update the C++ code
+            updateCppCode();
+        });
+
+        function updateCppCode() {
+            //let cppCode = "int classMate[5] = {";
+            $('input[type="number"]').each(function(index) {
+                cppCode += $(this).val() ? `int classMate[${index}] = ${$(this).val()};\n`:"\n";//"0";
+                //if (index < 4) cppCode += ", ";
+            });
+            //cppCode += "};";
+
+            $('#cppCode').text(cppCode);
+            hljs.highlightElement(document.getElementById('cppCode'));
+        }
+
+        // Initialize the C++ code
+        updateCppCode();
+    });
+    </script>
+</body>
+</html>
