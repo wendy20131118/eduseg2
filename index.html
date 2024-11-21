@@ -87,16 +87,34 @@
         });
 
         function updateCppCode() {
-            //let cppCode = "int classMate[5] = {";
-            $('input[type="number"]').each(function(index) {
-                cppCode += $(this).val() ? `int classMate[${index}] = ${$(this).val()};\n`:"\n";//"0";
-                //if (index < 4) cppCode += ", ";
-            });
-            //cppCode += "};";
+    // Initialize an empty string for cppCode
+    let cppCode = "";
 
-            $('#cppCode').text(cppCode);
-            hljs.highlightElement(document.getElementById('cppCode'));
+    // Flag to check if any input has a value
+    let hasValue = false;
+
+    // Loop through all input fields
+    $('input[type="number"]').each(function(index) {
+        const value = $(this).val();
+        if (value) {
+            // If input has a value, append the line to cppCode
+            cppCode += `int classMate[${index}] = ${value};\n`;
+            hasValue = true;
         }
+    });
+
+    // If no input values exist, set cppCode to an empty string
+    if (!hasValue) {
+        cppCode = "";
+    }
+
+    // Update the content of the #cppCode element
+    $('#cppCode').text(cppCode);
+
+    // Highlight the updated code
+    hljs.highlightElement(document.getElementById('cppCode'));
+}
+
 
         // Initialize the C++ code
         updateCppCode();
